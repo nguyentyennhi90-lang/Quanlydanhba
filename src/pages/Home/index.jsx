@@ -13,17 +13,19 @@ const addContact = (name, phone) => {
     name: name,
     phone: phone,
   };
-
+  // Cập nhật danh bạ 
   const updatedContacts = [...listContact, newContact];
   setListContact(updatedContacts);
   localStorage.setItem("contacts", JSON.stringify(updatedContacts));
   
 };
+// lấy local storage sau khi xóa contact
 const deleteContact = (contactId) => {
   const updatedContacts = listContact.filter((contact) => contact.id !== contactId);
   setListContact(updatedContacts);
   localStorage.setItem("contacts", JSON.stringify(updatedContacts));
 };
+
   return (
 <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       <Header  />

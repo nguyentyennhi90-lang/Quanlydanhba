@@ -43,9 +43,15 @@ export const Header = () => {
       <path d="m19.07 4.93-1.41 1.41"></path>
     </svg>
   );
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  //useState quản lý isDarkMode, mặc định lấy từ localStorage
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    return savedMode ? savedMode === "true" : false;
+  });
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
+    // Lưu chế độ sáng/tối vào localStorage
+    localStorage.setItem("darkMode", !isDarkMode);
   };
   useEffect(() => {
     if (isDarkMode) {
@@ -54,7 +60,13 @@ export const Header = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [isDarkMode]);
-  
+  // Ghi nhớ chế độ sáng/tối
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode) {
+      setIsDarkMode(savedMode === "true");
+    }
+  }, []);
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
       <header className="flex items-center justify-between mb-8">
